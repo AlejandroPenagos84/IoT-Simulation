@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: device_management_context
+
+mqtt:
+  broker-url: ${MQTT_BROKER_URL:tcp://localhost:1883}
+  client-id: ${MQTT_CLIENT_ID:}
+  connection-timeout: ${MQTT_CONNECTION_TIMEOUT:30}
+  keep-alive-interval: ${MQTT_KEEP_ALIVE_INTERVAL:20}
+  clean-session: ${MQTT_CLEAN_SESSION:true}
+
+device-management:
+  base-url: ${DEVICE_MANAGEMENT_BASE_URL:http://localhost:8090}
+  endpoints:
+    activate: /api/v1/device/activate
+    deactivate: /api/v1/device/deactivate
+  timeout:
+    connect: ${DEVICE_MANAGEMENT_CONNECT_TIMEOUT:3000}
+    read: ${DEVICE_MANAGEMENT_READ_TIMEOUT:5000}

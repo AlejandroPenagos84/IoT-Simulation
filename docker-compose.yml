@@ -1,0 +1,41 @@
+services:
+  mqtt:
+    image: eclipse-mosquitto:2
+    container_name: mqtt
+    ports:
+      - "1883:1883"
+    networks:
+      - mqtt-net
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      
+  simulador:
+    build:
+      context: ./simulador
+    ports:
+      - "8081:8090"
+    environment:
+      - MQTT_BROKER_URL=tcp://mqtt:1883
+      - SERVER_PORT=8090
+    depends_on:
+      - mqtt
+    networks:
+      - mqtt-net
+
+  device_management_context:
+    build:
+      context: ./device_management_context
+    ports:
+      - "8080:8080"
+    environment:
+      - DEVICE_MANAGEMENT_BASE_URL=http://simulador:8090
+      - MQTT_BROKER_URL=tcp://mqtt:1883
+    depends_on:
+      - simulador
+      - mqtt
+    networks:
+      - mqtt-net
+
+networks:
+  mqtt-net:
+    driver: bridge
