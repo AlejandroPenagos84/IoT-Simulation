@@ -1,0 +1,5 @@
+.env
+/construccion-frontend/
+/construccion-backend/
+/construccion*/
+/influxdb3_data
