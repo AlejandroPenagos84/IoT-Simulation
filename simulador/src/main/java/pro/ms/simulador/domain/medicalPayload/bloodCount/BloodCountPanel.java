@@ -4,13 +4,13 @@ import pro.ms.simulador.domain.medicalPayload.units.ConcentrationUnit;
 import pro.ms.simulador.domain.medicalPayload.units.CountingUnit;
 
 public record BloodCountPanel(
-        double hemoglobin,
+        Double hemoglobin,
         ConcentrationUnit hemoglobinUnit,
-        int whiteBloodCells,
+        Integer whiteBloodCells,
         CountingUnit whiteBloodCellsUnit,
-        int platelets,
+        Integer platelets,
         CountingUnit plateletsUnit,
-        double iron,
+        Double iron,
         ConcentrationUnit ironUnit
 ) {
 /*

@@ -24,7 +24,6 @@ public class MqttHandlerBloodCount implements PayloadHandler<BloodCountMedicalPa
                 new BloodCountMedicalPayload(panel);
 
         return new TelemetryMessage<>(
-                message.uuid(),
                 message.deviceId(),
                 message.userId(),
                 message.timestamp(),

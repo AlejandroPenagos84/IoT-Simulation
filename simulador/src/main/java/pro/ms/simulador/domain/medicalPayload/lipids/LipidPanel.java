@@ -3,9 +3,9 @@ package pro.ms.simulador.domain.medicalPayload.lipids;
 import pro.ms.simulador.domain.medicalPayload.units.ConcentrationUnit;
 
 public record LipidPanel(
-        double totalCholesterol,
+        Double totalCholesterol,
         ConcentrationUnit totalCholesterolUnit,
-        double triglycerides,
+        Double triglycerides,
         ConcentrationUnit triglyceridesUnit
 ) {
     /*

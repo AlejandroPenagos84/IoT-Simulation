@@ -3,13 +3,13 @@ package pro.ms.simulador.domain.medicalPayload.metabolic;
 import pro.ms.simulador.domain.medicalPayload.units.ConcentrationUnit;
 
 public record MetabolicPanel(
-        double glucose,
+        Double glucose,
         ConcentrationUnit glucoseUnit,
-        double creatinine,
-        double bloodUreaNitrogen,
-        double uricAcid,
-        double ph,
-        double calcium
+        Double creatinine,
+        Double bloodUreaNitrogen,
+        Double uricAcid,
+        Double ph,
+        Double calcium
 ) {
     /*
     public MetabolicPanel {

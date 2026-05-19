@@ -16,7 +16,6 @@ public class MqttHandlerMetabolism implements PayloadHandler<MetabolicPayload> {
 	public TelemetryMessage<MetabolicPayload> buildPayload(TelemetryMessage<MetabolicPayload> message) {
 		MetabolicPayload fragment = new MetabolicPayload(message.payload().metabolic());
 		return new TelemetryMessage<>(
-				message.uuid(),
 				message.deviceId(),
 				message.userId(),
 				message.timestamp(),

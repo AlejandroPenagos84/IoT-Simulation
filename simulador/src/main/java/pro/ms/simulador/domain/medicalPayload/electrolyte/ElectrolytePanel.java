@@ -3,9 +3,9 @@ package pro.ms.simulador.domain.medicalPayload.electrolyte;
 import pro.ms.simulador.domain.medicalPayload.units.ElectrolyteUnit;
 
 public record ElectrolytePanel(
-        double sodium,
+        Double sodium,
         ElectrolyteUnit sodiumUnit,
-        double potassium,
+        Double potassium,
         ElectrolyteUnit potassiumUnit
 ) {
     /*

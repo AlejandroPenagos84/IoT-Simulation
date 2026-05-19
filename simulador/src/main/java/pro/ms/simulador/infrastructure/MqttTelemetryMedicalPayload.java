@@ -74,7 +74,6 @@ public class MqttTelemetryMedicalPayload
             throws MqttException, JsonProcessingException {
         MetabolicPayload metabolicPayload = new MetabolicPayload(message.payload().metabolic());
         TelemetryMessage<MetabolicPayload> newMessage = new TelemetryMessage<>(
-                message.uuid(),
                 message.deviceId(),
                 message.userId(),
                 message.timestamp(),
@@ -90,7 +89,6 @@ public class MqttTelemetryMedicalPayload
             throws MqttException, JsonProcessingException {
         ElectrolytePayload electrolytePayload = new ElectrolytePayload(message.payload().electrolytes());
         TelemetryMessage<ElectrolytePayload> newMessage = new TelemetryMessage<>(
-                message.uuid(),
                 message.deviceId(),
                 message.userId(),
                 message.timestamp(),
@@ -105,7 +103,6 @@ public class MqttTelemetryMedicalPayload
             throws MqttException, JsonProcessingException {
         BloodCountMedicalPayload bloodCountMedicalPayload = new BloodCountMedicalPayload(message.payload().bloodCount());
         TelemetryMessage<BloodCountMedicalPayload> newMessage = new TelemetryMessage<>(
-                message.uuid(),
                 message.deviceId(),
                 message.userId(),
                 message.timestamp(),
@@ -121,7 +118,6 @@ public class MqttTelemetryMedicalPayload
             throws MqttException, JsonProcessingException {
         LipidPayload lipidPayload = new LipidPayload(message.payload().lipids());
         TelemetryMessage<LipidPayload> newMessage = new TelemetryMessage<>(
-                message.uuid(),
                 message.deviceId(),
                 message.userId(),
                 message.timestamp(),

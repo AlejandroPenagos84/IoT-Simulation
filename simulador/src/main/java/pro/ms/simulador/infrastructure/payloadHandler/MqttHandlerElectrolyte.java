@@ -16,7 +16,6 @@ public class MqttHandlerElectrolyte implements PayloadHandler<ElectrolytePayload
     public TelemetryMessage<ElectrolytePayload> buildPayload(TelemetryMessage<ElectrolytePayload> message) {
         ElectrolytePayload fragment = new ElectrolytePayload(message.payload().electrolytes());
         return new TelemetryMessage<>(
-                message.uuid(),
                 message.deviceId(),
                 message.userId(),
                 message.timestamp(),

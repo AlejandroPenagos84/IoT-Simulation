@@ -27,6 +27,7 @@ public class DeviceFactory {
         return Device.<T>builder()
                 .deviceId(UUID.fromString(deviceId))
                 .type(type)
+                .userId(userId)
                 .state(DeviceState.CONNECTED)
                 .duration(Duration.ofSeconds(interval))
                 .payloadState(factory.initialState(userId))

@@ -44,8 +44,9 @@ public class SimulationOrchestrationUseCase implements SimulationOrchestrator{
     @Async
     @Override
     public CompletableFuture<DeviceRespondDTO> addDevice(DeviceRequestDTO deviceRequestDTO) {
+        System.out.println(deviceRequestDTO);
         Device<?> device = createDevice(deviceRequestDTO);
-
+        System.out.println(device);
         if (device == null) {
             throw new IllegalArgumentException("device no puede ser nulo");
         }

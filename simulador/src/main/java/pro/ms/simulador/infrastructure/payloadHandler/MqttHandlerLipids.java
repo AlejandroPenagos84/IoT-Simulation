@@ -16,7 +16,6 @@ public class MqttHandlerLipids implements PayloadHandler<LipidPayload> {
 	public TelemetryMessage<LipidPayload> buildPayload(TelemetryMessage<LipidPayload> message) {
 		LipidPayload fragment = new LipidPayload(message.payload().lipids());
 		return new TelemetryMessage<>(
-				message.uuid(),
 				message.deviceId(),
 				message.userId(),
 				message.timestamp(),

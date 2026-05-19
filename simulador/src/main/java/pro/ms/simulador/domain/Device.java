@@ -16,7 +16,7 @@ import java.util.UUID;
 @Data
 public class Device<T extends Payload> implements TelemetrySource<T> {
     private UUID deviceId;
-    private UUID userId;
+    private String userId;
     private DeviceState state;
     private DeviceType type;
     private Duration duration;
@@ -27,7 +27,6 @@ public class Device<T extends Payload> implements TelemetrySource<T> {
     public Optional<TelemetryMessage<T>> generateTelemetryMessage() {
         T payload = payloadGenerator.generate(this.payloadState);
         TelemetryMessage<T> message = new TelemetryMessage<>(
-                UUID.randomUUID(),
                 this.deviceId,
                 this.userId,
                 Instant.now(),

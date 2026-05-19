@@ -8,15 +8,15 @@ services:
       - mqtt-net
     volumes:
       - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      
+
   simulador:
     build:
       context: ./simulador
     ports:
       - "8081:8090"
     environment:
-      - MQTT_BROKER_URL=tcp://mqtt:1883
-      - SERVER_PORT=8090
+      - MQTT_BROKER_URL=${MQTT_BROKER_URL}
+      - SERVER_PORT=${SIMULADOR_SERVER_PORT}
     depends_on:
       - mqtt
     networks:
@@ -28,14 +28,75 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - DEVICE_MANAGEMENT_BASE_URL=http://simulador:8090
-      - MQTT_BROKER_URL=tcp://mqtt:1883
+      - DEVICE_MANAGEMENT_BASE_URL=${DEVICE_MANAGEMENT_BASE_URL}
+      - MQTT_BROKER_URL=${MQTT_BROKER_URL}
     depends_on:
       - simulador
       - mqtt
     networks:
       - mqtt-net
 
+  #backend:
+  #  build:
+  #    context: ./construccion-backend
+  #  ports:
+  #    - "8082:8080"
+  #  environment:
+  #    - DATABASE_POSTGRESQL_URL=${DATABASE_POSTGRESQL_URL}
+  #    - DATABASE_POSTGRESQL_USERNAME=${DATABASE_POSTGRESQL_USERNAME}
+  #    - DATABASE_POSTGRESQL_PASSWORD=${DATABASE_POSTGRESQL_PASSWORD}
+  #    - INFLUX_URL=${INFLUX_URL}
+  #    - INFLUX_TOKEN=${INFLUX_TOKEN}
+  #    - INFLUX_DB=${INFLUX_DB}
+  #    - MQTT_BROKER_URL=${MQTT_BROKER_URL}
+  #  depends_on:
+  #    - mqtt
+  #    - influxdb
+  #    - postgres
+  #  networks:
+  #    - mqtt-net
+
+  influxdb3-core:
+    image: influxdb:3-core
+    ports:
+      - 8181:8181
+    command:
+      - influxdb3
+      - serve
+      - --node-id=node0
+      - --object-store=file
+      - --data-dir=/var/lib/influxdb3/data
+      - --admin-token-file=/run/secrets/admin-token
+    secrets:
+      - admin-token
+    volumes:
+      - type: bind
+        source: ~/.influxdb3/data
+        target: /var/lib/influxdb3/data
+    networks:
+      - mqtt-net
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${DATABASE_POSTGRESQL_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_POSTGRESQL_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./construccion-backend/db:/docker-entrypoint-initdb.d:ro
+    networks:
+      - mqtt-net
+
 networks:
   mqtt-net:
     driver: bridge
+
+volumes:
+  postgres-data:
+secrets:
+  admin-token:
+    file: ./secrets.json
