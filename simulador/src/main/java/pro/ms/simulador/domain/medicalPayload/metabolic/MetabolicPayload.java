@@ -1,5 +1,6 @@
 package pro.ms.simulador.domain.medicalPayload.metabolic;
 
+import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -13,5 +14,9 @@ public record MetabolicPayload(
     public MetabolicPayload {
         Objects.requireNonNull(metabolic, "metabolic must not be null");
     }
-}
 
+    @Override
+    public List<Payload> getPayloads() {
+        return List.of();
+    }
+}

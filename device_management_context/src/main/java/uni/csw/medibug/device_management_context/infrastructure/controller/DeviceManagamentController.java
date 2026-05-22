@@ -31,4 +31,11 @@ public class DeviceManagamentController {
         deviceManagementUseCase.activateDevice(deviceRequestActivateDTO.deviceId());
         return Mono.just(ResponseEntity.status(HttpStatus.OK).body(true));
     }
+
+    @PostMapping("/deactivate")
+    public Mono<ResponseEntity<Boolean>> deactivateDevice(
+            @RequestBody DeviceRequestActivateDTO deviceRequestActivateDTO) {
+        deviceManagementUseCase.deactivateDevice(deviceRequestActivateDTO.deviceId());
+        return Mono.just(ResponseEntity.status(HttpStatus.OK).body(true));
+    }
 }

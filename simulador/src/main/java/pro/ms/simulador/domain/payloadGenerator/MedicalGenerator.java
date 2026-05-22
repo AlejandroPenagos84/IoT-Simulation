@@ -1,11 +1,16 @@
 package pro.ms.simulador.domain.payloadGenerator;
 
 import java.util.Random;
+
+import pro.ms.simulador.domain.medicalPayload.bloodCount.BloodCountMedicalPayload;
 import pro.ms.simulador.domain.medicalPayload.bloodCount.BloodCountPanel;
 import pro.ms.simulador.domain.medicalPayload.electrolyte.ElectrolytePanel;
+import pro.ms.simulador.domain.medicalPayload.electrolyte.ElectrolytePayload;
 import pro.ms.simulador.domain.medicalPayload.lipids.LipidPanel;
+import pro.ms.simulador.domain.medicalPayload.lipids.LipidPayload;
 import pro.ms.simulador.domain.medicalPayload.MedicalPayload;
 import pro.ms.simulador.domain.medicalPayload.metabolic.MetabolicPanel;
+import pro.ms.simulador.domain.medicalPayload.metabolic.MetabolicPayload;
 import pro.ms.simulador.domain.payloadGenerator.panelsFactories.BloodCountFactory;
 import pro.ms.simulador.domain.payloadGenerator.panelsFactories.ElectrolytePanelFactory;
 import pro.ms.simulador.domain.payloadGenerator.panelsFactories.LipidPanelFactory;
@@ -38,16 +43,19 @@ public class MedicalGenerator implements PayloadGenerator<MedicalPayload> {
 
     @Override
     public MedicalPayload generate(MedicalPayload currentPayload) {
-        MetabolicPanel metabolic = currentPayload != null ? currentPayload.metabolic() : null;
-        LipidPanel lipids = currentPayload != null ? currentPayload.lipids() : null;
-        ElectrolytePanel electrolytes = currentPayload != null ? currentPayload.electrolytes() : null;
-        BloodCountPanel bloodCount = currentPayload != null ? currentPayload.bloodCount() : null;
+        MetabolicPanel metabolic = currentPayload != null ? currentPayload.metabolic().metabolic() : null;
+        LipidPanel lipids = currentPayload != null ? currentPayload.lipids().lipids() : null;
+        ElectrolytePanel electrolytes = currentPayload != null ? currentPayload.electrolytes().electrolytes() : null;
+        BloodCountPanel bloodCount = currentPayload != null ? currentPayload.bloodCount().bloodCount() : null;
 
         MetabolicPanel nextMetabolic = MetabolicPanelFactory.create(RANDOM, metabolic);
         LipidPanel nextLipids = LipidPanelFactory.createLipidPanel(RANDOM, lipids);
-        ElectrolytePanel nextElectrolytes = ElectrolytePanelFactory.create(RANDOM,electrolytes);
-        BloodCountPanel nextBloodCount = BloodCountFactory.create(RANDOM,bloodCount);
+        ElectrolytePanel nextElectrolytes = ElectrolytePanelFactory.create(RANDOM, electrolytes);
+        BloodCountPanel nextBloodCount = BloodCountFactory.create(RANDOM, bloodCount);
 
-        return new MedicalPayload(nextMetabolic, nextLipids, nextElectrolytes, nextBloodCount);
+        return new MedicalPayload(new MetabolicPayload(nextMetabolic),
+                                  new LipidPayload(nextLipids),
+                                  new ElectrolytePayload(nextElectrolytes),
+                                  new BloodCountMedicalPayload(nextBloodCount));
     }
 }

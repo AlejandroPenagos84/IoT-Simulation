@@ -2,14 +2,18 @@ package pro.ms.simulador.domain.factory;
 
 import org.springframework.stereotype.Component;
 import pro.ms.simulador.domain.DeviceType;
+import pro.ms.simulador.domain.medicalPayload.bloodCount.BloodCountMedicalPayload;
 import pro.ms.simulador.domain.medicalPayload.bloodCount.BloodCountPanel;
-import pro.ms.simulador.domain.medicalPayload.units.ConcentrationUnit;
-import pro.ms.simulador.domain.medicalPayload.units.CountingUnit;
 import pro.ms.simulador.domain.medicalPayload.electrolyte.ElectrolytePanel;
-import pro.ms.simulador.domain.medicalPayload.units.ElectrolyteUnit;
+import pro.ms.simulador.domain.medicalPayload.electrolyte.ElectrolytePayload;
 import pro.ms.simulador.domain.medicalPayload.lipids.LipidPanel;
+import pro.ms.simulador.domain.medicalPayload.lipids.LipidPayload;
 import pro.ms.simulador.domain.medicalPayload.MedicalPayload;
 import pro.ms.simulador.domain.medicalPayload.metabolic.MetabolicPanel;
+import pro.ms.simulador.domain.medicalPayload.metabolic.MetabolicPayload;
+import pro.ms.simulador.domain.medicalPayload.units.ConcentrationUnit;
+import pro.ms.simulador.domain.medicalPayload.units.CountingUnit;
+import pro.ms.simulador.domain.medicalPayload.units.ElectrolyteUnit;
 import pro.ms.simulador.domain.payloadGenerator.MedicalGenerator;
 import pro.ms.simulador.domain.payloadGenerator.PayloadGenerator;
 
@@ -61,7 +65,12 @@ public class MedicalFactory implements PayloadFactory<MedicalPayload> {
                 ConcentrationUnit.MG_DL
         );
 
-        return new MedicalPayload(metabolic, lipids, electrolytes, bloodCount);
+        MetabolicPayload metabolicPayload = new MetabolicPayload(metabolic);
+        LipidPayload lipidPayload = new LipidPayload(lipids);
+        ElectrolytePayload electrolytePayload = new ElectrolytePayload(electrolytes);
+        BloodCountMedicalPayload bloodCountMedicalPayload = new BloodCountMedicalPayload(bloodCount);
+
+        return new MedicalPayload(metabolicPayload, lipidPayload, electrolytePayload, bloodCountMedicalPayload);
     }
 
     @Override

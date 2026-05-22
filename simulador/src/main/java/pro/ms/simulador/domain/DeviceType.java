@@ -5,7 +5,17 @@ public enum DeviceType {
     METABOLIC("Metabolic"),
     LIPID("Lipid"),
     ELECTROLYTE("Electrolyte"),
-    BLOOD_COUNT("BloodCount");
+    BLOOD_COUNT("BloodCount"),
+    CARDIOMETABOLIC("Cardiometabolic"),
+    RENAL("Renal"),
+    HEMATOMETABOLIC("Hematometabolic"),
+    LIPID_ELECTROLYTE("LipidElectrolyte"),
+    LIPID_HEMATOLOGY("LipidHematology"),
+    ELECTROLYTE_HEMATOLOGY("ElectrolyteHematology"),
+    METABOLIC_COMPREHENSIVE("MetabolicComprehensive"),
+    CARDIO_HEMATOLOGY("CardioHematology"),
+    RENAL_HEMATOLOGY("RenalHematology"),
+    ELECTRO_LIPID_HEMATOLOGY("ElectroLipidHematology");
 
     private final String code;
 

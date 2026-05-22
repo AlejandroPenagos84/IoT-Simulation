@@ -17,3 +17,6 @@ device-management:
   timeout:
     connect: ${DEVICE_MANAGEMENT_CONNECT_TIMEOUT:3000}
     read: ${DEVICE_MANAGEMENT_READ_TIMEOUT:5000}
+
+server:
+  port: 8081

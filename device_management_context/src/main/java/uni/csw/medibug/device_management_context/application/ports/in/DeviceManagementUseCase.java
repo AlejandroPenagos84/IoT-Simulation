@@ -7,4 +7,5 @@ import uni.csw.medibug.device_management_context.application.DTO.respond.DeviceR
 public interface DeviceManagementUseCase {
     Mono<DeviceRespondDTO> registerDevice(DeviceRequestDTO deviceRequestDTO);
     void activateDevice(String deviceId);
+    void deactivateDevice(String deviceId);
 }
