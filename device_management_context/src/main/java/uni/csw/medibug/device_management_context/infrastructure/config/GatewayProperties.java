@@ -2,7 +2,7 @@ package uni.csw.medibug.device_management_context.infrastructure.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "device-management")
+@ConfigurationProperties(prefix = "simulador")
 public record GatewayProperties(
         String baseUrl,
         Endpoints endpoints,
