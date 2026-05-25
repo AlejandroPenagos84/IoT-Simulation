@@ -12,17 +12,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class DeviceRegistry {
-    private final Map<UUID, TelemetrySource<?>> devices = new ConcurrentHashMap<>();
+    private final Map<String, TelemetrySource<?>> devices = new ConcurrentHashMap<>();
 
     public <T extends Payload> void register(TelemetrySource<T> device) {
         devices.put(device.getDeviceId(), device);
     } 
 
-    public void unregister(UUID deviceId) {
+    public void unregister(String deviceId) {
         devices.remove(deviceId);
     }
 
-    public Optional<TelemetrySource<?>> findById(UUID deviceId) {
+    public Optional<TelemetrySource<?>> findById(String deviceId) {
         return Optional.ofNullable(devices.get(deviceId));
     }
 

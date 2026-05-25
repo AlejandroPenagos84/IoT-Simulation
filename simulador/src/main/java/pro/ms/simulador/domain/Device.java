@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @Data
 public class Device<T extends Payload> implements TelemetrySource<T> {
-    private UUID deviceId;
+    private String deviceId;
     private String userId;
     private DeviceState state;
     private DeviceType type;

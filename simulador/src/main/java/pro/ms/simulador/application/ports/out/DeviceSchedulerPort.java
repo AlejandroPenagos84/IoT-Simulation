@@ -6,6 +6,6 @@ import java.util.UUID;
 
 public interface DeviceSchedulerPort {
     void schedule(TelemetrySource<?> device, Runnable task);
-    void cancel(UUID deviceId);
+    void cancel(String deviceId);
     void cancelAll();
 }

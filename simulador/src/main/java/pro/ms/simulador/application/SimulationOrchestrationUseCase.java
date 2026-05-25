@@ -42,13 +42,12 @@ public class SimulationOrchestrationUseCase implements SimulationOrchestrator{
     @Async
     @Override
     public CompletableFuture<DeviceRespondDTO> addDevice(DeviceRequestDTO deviceRequestDTO) {
+        System.out.println("Executing addDevice with request: " + deviceRequestDTO);
+        System.out.println(deviceRequestDTO);
+
         Device<?> device = createDevice(deviceRequestDTO);
         if (device == null) {
             throw new IllegalArgumentException("device no puede ser nulo");
-        }
-
-        if (device.getDeviceId() == null) {
-            device.setDeviceId(UUID.randomUUID());
         }
 
         deviceRegistry.register(device);
@@ -57,10 +56,10 @@ public class SimulationOrchestrationUseCase implements SimulationOrchestrator{
 
     @Override
     public void executeCommand(TelemetryReceived<CommandPayload> command) {
-        System.out.println("Received command: " + command.messageToDeserialize().action() + " for device: " + extractUuid(command.topic()));
+        System.out.println("Received command: " + command.messageToDeserialize().action() + " for device: " + extractId(command.topic()));
         switch (command.messageToDeserialize().action()) {
-            case "ACTIVATE" -> startTelemetry(extractUuid(command.topic()));
-            case "DEACTIVATE" -> stopTelemetry(extractUuid(command.topic()));
+            case "ACTIVATE" -> startTelemetry(extractId(command.topic()));
+            case "DEACTIVATE" -> stopTelemetry(extractId(command.topic()));
         }
     }
 
@@ -68,7 +67,7 @@ public class SimulationOrchestrationUseCase implements SimulationOrchestrator{
     @Override
     public void removeDevice(String deviceId) {}
 
-    private void startTelemetry(UUID deviceId) {
+    private void startTelemetry(String deviceId) {
         System.out.println("Starting Telemetry");
         TelemetrySource<?> device = deviceRegistry.findById(deviceId).orElse(null);
         if (device == null) {
@@ -77,7 +76,7 @@ public class SimulationOrchestrationUseCase implements SimulationOrchestrator{
         deviceSchedulerPort.schedule(device, () -> publishTelemetry(device));
     }
 
-    private void stopTelemetry(UUID deviceId) {
+    private void stopTelemetry(String deviceId) {
         deviceSchedulerPort.cancel(deviceId);
     }
 
@@ -95,7 +94,7 @@ public class SimulationOrchestrationUseCase implements SimulationOrchestrator{
         );
     }
 
-    public UUID extractUuid(String topic) {
+    public String extractId(String topic) {
 
         String[] parts = topic.split("/");
 
@@ -103,6 +102,6 @@ public class SimulationOrchestrationUseCase implements SimulationOrchestrator{
             throw new IllegalArgumentException("Invalid topic");
         }
 
-        return UUID.fromString(parts[1]);
+        return parts[1];
     }
 }

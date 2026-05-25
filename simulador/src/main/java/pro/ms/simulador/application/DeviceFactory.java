@@ -25,7 +25,7 @@ public class DeviceFactory {
         PayloadFactory<T> factory = payloadFactoryRegistry.get(type);
 
         return Device.<T>builder()
-                .deviceId(UUID.fromString(deviceId))
+                .deviceId(deviceId)
                 .type(type)
                 .userId(userId)
                 .state(DeviceState.CONNECTED)

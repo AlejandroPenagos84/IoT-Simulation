@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TelemetrySource <T extends Payload>{
-    UUID getDeviceId();
+    String getDeviceId();
     Duration getDuration();
     Optional<TelemetryMessage<T>> generateTelemetryMessage();
 }

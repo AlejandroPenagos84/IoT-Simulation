@@ -10,7 +10,7 @@ import java.util.UUID;
 import java.util.concurrent.*;
 @Component
 public class VirtualThreadDeviceScheduler implements DeviceSchedulerPort {
-    private final Map<UUID, ScheduledFuture<?>> tasks = new ConcurrentHashMap<>();
+    private final Map<String, ScheduledFuture<?>> tasks = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final ExecutorService virtualExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
@@ -34,7 +34,7 @@ public class VirtualThreadDeviceScheduler implements DeviceSchedulerPort {
     }
 
     @Override
-    public void cancel(UUID deviceId) {
+    public void cancel(String deviceId) {
         Optional.ofNullable(tasks.remove(deviceId))
                 .ifPresent(f -> f.cancel(false));
 

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import pro.ms.simulador.domain.payload.Payload;
 
 public record TelemetryMessage<T extends Payload> (
-        UUID deviceId,
+        String deviceId,
         String userId,
         Instant timestamp,
         DeviceType device,

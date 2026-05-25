@@ -22,20 +22,6 @@ services:
     networks:
       - mqtt-net
 
-  device_management_context:
-    build:
-      context: ./device_management_context
-    ports:
-      - "8081:8081"
-    environment:
-      - SIMULADOR_BASE_URL=${SIMULADOR_BASE_URL}
-      - MQTT_BROKER_URL=${MQTT_BROKER_URL}
-    depends_on:
-      - simulador
-      - mqtt
-    networks:
-      - mqtt-net
-
   backend:
     build:
       context: ./construccion-backend
@@ -49,6 +35,8 @@ services:
       - INFLUX_TOKEN=${INFLUX_TOKEN}
       - INFLUX_DB=${INFLUX_DB}
       - DEVICE_MANAGEMENT_URL=${DEVICE_MANAGEMENT_URL}
+      - MQTT_BROKER_URL=${MQTT_BROKER_URL}
+      - SIMULADOR_BASE_URL=${SIMULADOR_BASE_URL}
       - MQTT_BROKER_URL=${MQTT_BROKER_URL}
     depends_on:
       - mqtt
